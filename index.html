@@ -1,0 +1,304 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Birthday Surprise ❤️</title>
+
+<style>
+
+/* 🌈 BACKGROUND */
+body {        
+    font-family: Arial, sans-serif;
+    background: linear-gradient(rgba(0,0,0,0.4), rgba(0,0,0,0.4)),
+                url('vk.jpeg') no-repeat center center/cover;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+    margin: 0;
+    overflow: hidden;
+    animation: zoomBg 20s infinite alternate;
+    transition: background 1s ease-in-out;
+}
+
+@keyframes zoomBg {
+    from {background-size: 100% 100%;}
+    to {background-size: 120% 120%;}
+}
+
+/* 💎 BOX */
+.container {
+    background: rgb(238, 241, 241);
+    backdrop-filter: blur(25px);
+    padding: 40px;
+    border-radius: 30px;
+    width: 500px;
+    max-width: 90%;
+    box-shadow: 0 0 40px rgba(255, 75, 92, 0.5);
+    animation: fadeIn 1s ease;
+}
+
+@keyframes fadeIn {
+    from {opacity: 0; transform: scale(0.8);}
+    to {opacity: 1; transform: scale(1);}
+}
+
+h2 {
+    text-align: center;
+    color: #a10505e7;
+}
+
+input {
+    width:100%;
+    padding:12px;
+    border-radius:10px;
+    border:none;
+    margin-top:10px;
+}
+
+/* QUESTIONS */
+.question { display:none; }
+.question.active { display:block; }
+
+button {
+    margin-top:10px;
+    padding:12px;
+    width:100%;
+    border:none;
+    border-radius:15px;
+    background:linear-gradient(135deg,#01062b,#010d44);
+    color:white;
+    cursor:pointer;
+}
+
+.selected {
+    background:#ed7b87 !important;
+}
+
+/* SUBMIT */
+.submit-btn {
+    margin-top:20px;
+    width:70%;
+    margin-left:auto;
+    margin-right:auto;
+    display:block;
+    padding:15px;
+    background:linear-gradient(135deg,#02c94b,#79c713);
+}
+
+/* HEART */
+.heart {
+    position:absolute;
+    animation:float 6s linear infinite;
+}
+@keyframes float {
+    0% {transform:translateY(100vh);}
+    100% {transform:translateY(-10vh);}
+}
+
+#finalMessage {
+    display:none;
+    text-align:center;
+}
+
+</style>
+</head>
+
+<body>
+
+<!-- REGISTER -->
+<div class="container" id="registerPage">
+<h2> Happy Birthday kuttachi❤️</h2>
+<p>Enter your name</p>
+<input type="text" id="username" placeholder=" Name type pannu dii">
+<button onclick="startQuiz()" class="submit-btn">Start Surprise 🎁</button>
+</div>
+
+<!-- QUIZ -->
+<div class="container" id="quizPage" style="display:none;">
+<h2>Happy Birthday My Love ❤️</h2>
+
+<div class="question active">
+<p>1. FIRST MEET PLACE?</p>
+<button onclick="selectAnswer(this)">Beach</button>
+<button onclick="selectAnswer(this)">College</button>
+<button onclick="selectAnswer(this)">Park</button>
+<button class="submit-btn" onclick="submitAnswer()">Submit ❤️</button>
+</div>
+
+<div class="question">
+<p>2. FAVORITE FOOD?</p>
+<button onclick="selectAnswer(this)">Chicken rice</button>
+<button onclick="selectAnswer(this)">Biryani</button>
+<button onclick="selectAnswer(this)">Curd rice</button>
+<button class="submit-btn" onclick="submitAnswer()">Submit ❤️</button>
+</div>
+
+<div class="question">
+<p>3. BEST MEMORY?</p>
+<button onclick="selectAnswer(this)">Love proposal</button>
+<button onclick="selectAnswer(this)">Sanda</button>
+<button onclick="selectAnswer(this)">First meet</button>
+<button class="submit-btn" onclick="submitAnswer()">Submit ❤️</button>
+</div>
+
+<div class="question">
+<p>4. WHY YOU LOVE ME?</p>
+<button onclick="selectAnswer(this)">Attitude</button>
+<button onclick="selectAnswer(this)">Character</button>
+<button onclick="selectAnswer(this)">Smile</button>
+<button class="submit-btn" onclick="submitAnswer()">Submit ❤️</button>
+</div>
+
+<div class="question">
+<p>5. DREAM PLACE?</p>
+<button onclick="selectAnswer(this)">Foreign</button>
+<button onclick="selectAnswer(this)">Village</button>
+<button onclick="selectAnswer(this)">City</button>
+<button class="submit-btn" onclick="submitAnswer()">Submit ❤️</button>
+</div>
+
+<div class="question">
+<p>6. ONE WORD ABOUT ME?</p>
+<button onclick="selectAnswer(this)">Cute</button>
+<button onclick="selectAnswer(this)">Lovely</button>
+<button onclick="selectAnswer(this)">Special</button>
+<button class="submit-btn" onclick="submitAnswer()">Submit ❤️</button>
+</div>
+
+<div class="question">
+<p>7. FAVORITE SONG?</p>
+<button onclick="selectAnswer(this)">Alone</button>
+<button onclick="selectAnswer(this)">Melody</button>
+<button onclick="selectAnswer(this)">Sad</button>
+<button class="submit-btn" onclick="submitAnswer()">Submit ❤️</button>
+</div>
+
+<div class="question">
+<p>8. COMFORTABLE?</p>
+<button onclick="selectAnswer(this)">No</button>
+<button onclick="selectAnswer(this)">Yes</button>
+<button class="submit-btn" onclick="submitAnswer()">Submit ❤️</button>
+</div>
+
+<div class="question">
+<p>9. FUTURE PLAN?</p>
+<button onclick="selectAnswer(this)">Freedom</button>
+<button onclick="selectAnswer(this)">Travel</button>
+<button onclick="selectAnswer(this)">Marriage</button>
+<button class="submit-btn" onclick="submitAnswer()">Submit ❤️</button>
+</div>
+
+<div class="question">
+<p>10. FIRST IMPRESSION?</p>
+<button onclick="selectAnswer(this)">Comedy</button>
+<button onclick="selectAnswer(this)">Joker</button>
+<button onclick="selectAnswer(this)">Seen</button>
+<button class="submit-btn" onclick="submitAnswer()">Submit ❤️</button>
+</div>
+
+<div id="finalMessage">
+<h3>Love You Forever ❤️</h3>
+<p>You are my everything 😍</p>
+<button onclick="sendToWhatsApp()" class="submit-btn">Send to WhatsApp 💌</button>
+</div>
+
+</div>
+
+<script>
+
+let current=0;
+let selected=false;
+let userName="";
+const questions=document.querySelectorAll('.question');
+
+/* 🔥 BACKGROUND IMAGES */
+const backgrounds = [
+    "url('vk1.jpeg')",
+    "url('vk2.jpeg')",
+    "url('vk3.jpeg')",
+    "url('vk4.jpeg')",
+    "url('vk5.jpeg')",
+    "url('vk6.jpeg')",
+    "url('vk7.jpeg')",
+    "url('vk8.jpeg')",
+    "url('vk9.jpeg')",
+    "url('vk10.jpeg')"
+];
+
+function changeBackground(){
+    document.body.style.background =
+    `linear-gradient(rgba(0,0,0,0.4), rgba(0,0,0,0.4)), ${backgrounds[current]} no-repeat center center/cover`;
+}
+
+/* START */
+function startQuiz(){
+    let name=document.getElementById("username").value;
+    if(name.trim()==""){
+        alert("Name enter pannudii vennamovaley 😅");
+        return;
+    }
+
+    userName=name;
+
+    document.getElementById("registerPage").style.display="none";
+    document.getElementById("quizPage").style.display="block";
+
+    changeBackground(); // first bg change
+}
+
+function selectAnswer(btn){
+    selected=true;
+    btn.parentElement.querySelectorAll("button").forEach(b=>b.classList.remove("selected"));
+    btn.classList.add("selected");
+}
+
+function submitAnswer(){
+    if(!selected){
+        alert("Answer select pannidu next podii kuttachi😅");
+        return;
+    }
+    selected=false;
+    questions[current].classList.remove('active');
+    current++;
+
+    if(current<questions.length){
+        questions[current].classList.add('active');
+        changeBackground(); // 🔥 change bg
+    }else{
+        document.getElementById('finalMessage').style.display='block';
+    }
+}
+
+/* WHATSAPP */
+function sendToWhatsApp(){
+    let answers=[];
+    document.querySelectorAll(".question").forEach((q,i)=>{
+        let sel=q.querySelector(".selected");
+        if(sel){
+            answers.push(`Q${i+1}: ${sel.innerText}`);
+        }
+    });
+
+    let msg=`Hey ❤️ I'm ${userName} 😍\n\nI completed your surprise 🎉\n\n${answers.join("\n")}`;
+    let phone="917418258603";
+
+    let url=`https://wa.me/${phone}?text=${encodeURIComponent(msg)}`;
+    window.open(url,"_blank");
+}
+
+/* HEART */
+setInterval(()=>{
+    let h=document.createElement("div");
+    h.innerHTML="❤️";
+    h.className="heart";
+    h.style.left=Math.random()*100+"vw";
+    document.body.appendChild(h);
+    setTimeout(()=>h.remove(),6000);
+},400);
+
+</script>
+
+</body>
+</html>
