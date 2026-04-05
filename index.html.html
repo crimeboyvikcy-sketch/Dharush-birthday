@@ -1,0 +1,303 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Birthday Surprise ❤️</title>
+
+<style>
+body {        
+    font-family: Arial, sans-serif;
+    background: linear-gradient(rgba(0,0,0,0.4), rgba(0,0,0,0.4)),
+                url('vk.jpeg') no-repeat center center/cover;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+    margin: 0;
+    overflow: hidden;
+}
+
+.container {
+    display: flex;
+    width: 900px;
+    max-width: 95%;
+    border-radius: 30px;
+    overflow: hidden;
+    box-shadow: 0 0 40px rgba(255, 75, 92, 0.5);
+}
+
+.left {
+    width: 50%;
+    background: #fff;
+    padding: 30px;
+}
+
+.right {
+    width: 50%;
+    background: url('photos/vk1.jpeg') no-repeat center center/cover;
+    transition: background 1s ease-in-out;
+}
+
+h2 {
+    text-align: center;
+    color: #a10505;
+}
+
+input {
+    width:100%;
+    padding:12px;
+    border-radius:10px;
+    border:none;
+    margin-top:10px;
+    background:#eee;
+}
+
+.question { display:none; }
+.question.active { display:block; }
+
+button {
+    margin-top:10px;
+    padding:12px;
+    width:100%;
+    border:none;
+    border-radius:15px;
+    background:#010d44;
+    color:white;
+    cursor:pointer;
+}
+
+.selected {
+    background:#ff5c7a !important;
+}
+
+.submit-btn {
+    margin-top:20px;
+    width:70%;
+    margin-left:auto;
+    margin-right:auto;
+    display:block;
+    padding:15px;
+    background:#00c853;
+}
+
+.heart {
+    position:absolute;
+    animation:float 6s linear infinite;
+}
+@keyframes float {
+    0% {transform:translateY(100vh);}
+    100% {transform:translateY(-10vh);}
+}
+
+#finalMessage {
+    display:none;
+    text-align:center;
+}
+</style>
+</head>
+
+<body>
+
+<div class="container">
+
+<div class="left">
+
+<div id="registerPage">
+<h2>Happy Birthday ❤️</h2>
+<p>Enter your name</p>
+<input type="text" id="username" placeholder="Enter name">
+<button onclick="startQuiz()" class="submit-btn">inge thoda vendum 🎁</button>
+</div>
+
+<div id="quizPage" style="display:none;">
+<h2>My Love ❤️</h2>
+
+<!-- 10 QUESTIONS -->
+
+<div class="question active">
+<p>1. FIRST MEET PLACE?</p>
+<button onclick="selectAnswer(this)">Beach</button>
+<button onclick="selectAnswer(this)">College</button>
+<button onclick="selectAnswer(this)">Park</button>
+<button class="submit-btn" onclick="submitAnswer()">Next</button>
+</div>
+
+<div class="question">
+<p>2. FAVORITE FOOD?</p>
+<button onclick="selectAnswer(this)">Chicken rice</button>
+<button onclick="selectAnswer(this)">Biryani</button>
+<button onclick="selectAnswer(this)">Curd rice</button>
+<button class="submit-btn" onclick="submitAnswer()">Next</button>
+</div>
+
+<div class="question">
+<p>3. BEST MEMORY?</p>
+<button onclick="selectAnswer(this)">Love proposal</button>
+<button onclick="selectAnswer(this)">Fight</button>
+<button onclick="selectAnswer(this)">First meet</button>
+<button class="submit-btn" onclick="submitAnswer()">Next</button>
+</div>
+
+<div class="question">
+<p>4. WHY YOU LOVE ME?</p>
+<button onclick="selectAnswer(this)">Attitude</button>
+<button onclick="selectAnswer(this)">Character</button>
+<button onclick="selectAnswer(this)">Smile</button>
+<button class="submit-btn" onclick="submitAnswer()">Next</button>
+</div>
+
+<div class="question">
+<p>5. DREAM PLACE?</p>
+<button onclick="selectAnswer(this)">Foreign</button>
+<button onclick="selectAnswer(this)">Village</button>
+<button onclick="selectAnswer(this)">City</button>
+<button class="submit-btn" onclick="submitAnswer()">Next</button>
+</div>
+
+<div class="question">
+<p>6. ONE WORD ABOUT ME?</p>
+<button onclick="selectAnswer(this)">Cute</button>
+<button onclick="selectAnswer(this)">Lovely</button>
+<button onclick="selectAnswer(this)">Special</button>
+<button class="submit-btn" onclick="submitAnswer()">Next</button>
+</div>
+
+<div class="question">
+<p>7. FAVORITE SONG?</p>
+<button onclick="selectAnswer(this)">Melody</button>
+<button onclick="selectAnswer(this)">Sad</button>
+<button onclick="selectAnswer(this)">Love song</button>
+<button class="submit-btn" onclick="submitAnswer()">Next</button>
+</div>
+
+<div class="question">
+<p>8. COMFORT WITH ME?</p>
+<button onclick="selectAnswer(this)">No</button>
+<button onclick="selectAnswer(this)">Yes</button>
+<button class="submit-btn" onclick="submitAnswer()">Next</button>
+</div>
+
+<div class="question">
+<p>9. FUTURE PLAN?</p>
+<button onclick="selectAnswer(this)">Travel</button>
+<button onclick="selectAnswer(this)">Career</button>
+<button onclick="selectAnswer(this)">Marriage</button>
+<button class="submit-btn" onclick="submitAnswer()">Next</button>
+</div>
+
+<div class="question">
+<p>10. FIRST IMPRESSION?</p>
+<button onclick="selectAnswer(this)">Funny</button>
+<button onclick="selectAnswer(this)">Serious</button>
+<button onclick="selectAnswer(this)">Cute</button>
+<button class="submit-btn" onclick="submitAnswer()">Finish ❤️</button>
+</div>
+
+<div id="finalMessage">
+<h3>Love You Forever ❤️</h3>
+<p>You are my everything 😍</p>
+<button onclick="sendToWhatsApp()" class="submit-btn">Send WhatsApp 💌</button>
+</div>
+
+</div>
+</div>
+
+<div class="right" id="imgBox"></div>
+
+</div>
+
+<script>
+
+let current=0;
+let selected=false;
+let userName="";
+const questions=document.querySelectorAll('.question');
+
+const images = [
+    "vk1.jpeg",
+    "vk2.jpeg",
+    "vk3.jpeg",
+    "vk4.jpeg",
+    "vk5.jpeg",
+    "vk6.jpeg",
+    "vk7.jpeg",
+    "vk8.jpeg",
+    "vk9.jpeg",
+    "vk10.jpeg"
+];
+
+function changeImage(){
+    if(current < images.length){
+        document.getElementById("imgBox").style.background =
+        `url(${images[current]}) no-repeat center center/cover`;
+    }
+}
+
+function startQuiz(){
+    let name=document.getElementById("username").value;
+    if(name.trim()==""){
+        alert("Name type pannu dii vennamovaleyy 😅");
+        return;
+    }
+
+    userName=name;
+    document.getElementById("registerPage").style.display="none";
+    document.getElementById("quizPage").style.display="block";
+
+    changeImage();
+}
+
+function selectAnswer(btn){
+    selected=true;
+    btn.parentElement.querySelectorAll("button").forEach(b=>b.classList.remove("selected"));
+    btn.classList.add("selected");
+}
+
+function submitAnswer(){
+    if(!selected){
+        alert("Select answer 😅");
+        return;
+    }
+
+    selected=false;
+    questions[current].classList.remove('active');
+    current++;
+
+    if(current<questions.length){
+        questions[current].classList.add('active');
+        changeImage();
+    }else{
+        document.getElementById('finalMessage').style.display='block';
+    }
+}
+
+function sendToWhatsApp(){
+    let answers=[];
+    document.querySelectorAll(".question").forEach((q,i)=>{
+        let sel=q.querySelector(".selected");
+        if(sel){
+            answers.push(`Q${i+1}: ${sel.innerText}`);
+        }
+    });
+
+    let msg=`Hey ❤️ I'm ${userName} 😍\n\nI completed your surprise 🎉\n\n${answers.join("\n")}`;
+    
+    let phone="917418258603"; // 👈 change your number
+
+    window.open(`https://wa.me/${phone}?text=${encodeURIComponent(msg)}`);
+}
+
+setInterval(()=>{
+    let h=document.createElement("div");
+    h.innerHTML="❤️";
+    h.className="heart";
+    h.style.left=Math.random()*100+"vw";
+    document.body.appendChild(h);
+    setTimeout(()=>h.remove(),6000);
+},400);
+
+</script>
+
+</body>
+</html>

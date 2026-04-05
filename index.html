@@ -1,0 +1,330 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<title>Triple Match Game Pro+</title>
+<meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+
+<style>
+body {
+  font-family: 'Poppins', sans-serif;
+  margin: 0;
+  height: 100vh;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+
+  background: linear-gradient(-45deg, 
+    #ff9a9e, 
+    #fad0c4, 
+    #a18cd1, 
+    #fbc2eb, 
+    #84fab0, 
+    #8fd3f4
+  );
+  background-size: 400% 400%;
+  animation: gradientBG 10s ease infinite;
+}
+
+@keyframes gradientBG {
+  0% { background-position: 0% 50%; }
+  50% { background-position: 100% 50%; }
+  100% { background-position: 0% 50%; }
+}
+
+.game-container {
+  background: linear-gradient(135deg, #1f2f38, #2c5364);
+  padding: 30px;
+  border-radius: 25px;
+  box-shadow: 0 10px 40px rgba(0,0,0,0.6);
+  width: 95%;
+  max-width: 1200px;
+}
+
+.inner-box {
+  background: linear-gradient(135deg, rgba(255,255,255,0.15), rgba(255,255,255,0.05));
+  padding: 25px;
+  border-radius: 25px;
+  backdrop-filter: blur(15px);
+
+  border: 1px solid rgba(255,255,255,0.2);
+  box-shadow: 
+    0 0 20px rgba(255,255,255,0.1),
+    0 0 40px rgba(255,105,180,0.2);
+
+  text-align: center;
+  transition: 0.3s;
+}
+
+.inner-box:hover {
+  transform: scale(1.02);
+}
+
+h1 {
+  margin: 10px 0;
+  font-size: 28px;
+  color: #fff;
+}
+
+.grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(100px, 100px));
+  justify-content: center;
+  gap: 12px;
+  margin-top: 20px;
+}
+
+.card {
+  width: 100px;
+  height: 100px;
+  perspective: 1000px;
+  cursor: pointer;
+}
+
+.inner {
+  width: 100%;
+  height: 100%;
+  position: relative;
+  transition: transform 0.5s;
+  transform-style: preserve-3d;
+}
+
+.card.open .inner {
+  transform: rotateY(180deg);
+}
+
+.front, .back {
+  position: absolute;
+  width: 100%; 
+  height: 100%;
+  border-radius: 12px;
+  backface-visibility: hidden;
+}
+
+.front {
+  background: linear-gradient(135deg, #ff9a9e, #fad0c4);
+}
+
+.back {
+  transform: rotateY(180deg);
+  overflow: hidden;
+}
+
+.back img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+.card.matched {
+  box-shadow: 0 0 20px #00ffcc;
+}
+
+button {
+  margin-top: 15px;
+  padding: 10px 25px;
+  border: none;
+  border-radius: 30px;
+  background: linear-gradient(135deg, #ff416c, #ff4b2b);
+  color: white;
+  cursor: pointer;
+}
+
+#winPopup {
+  position: fixed;
+  top:0;
+  left:0;
+  width:100%;
+  height:100%;
+  display:none;
+  background: rgba(0,0,0,0.7);
+  justify-content:center;
+  align-items:center;
+}
+
+.popupBox {
+  background:white;
+  padding:30px;
+  border-radius:20px;
+  text-align:center;
+}
+
+.confetti {
+  position: fixed;
+  width: 8px;
+  height: 8px;
+  top: -10px;
+  animation: fall linear forwards;
+}
+
+@keyframes fall {
+  to {
+    transform: translateY(100vh) rotate(720deg);
+    opacity: 0;
+  }
+}
+
+.heart {
+  position: fixed;
+  top: -20px;
+  font-size: 22px;
+  animation: fallHeart linear forwards;
+}
+
+@keyframes fallHeart {
+  to {
+    transform: translateY(110vh) scale(1.5);
+    opacity: 0;
+  }
+}
+</style>
+</head>
+
+<body>
+
+<div class="game-container">
+  <div class="inner-box">
+
+    <h1>❤️ THEDI KANDUPIDI CHELLAM</h1>
+
+    <div>⭐ Score: <span id="score">0</span></div>
+
+    <button onclick="startGame()">INGE THODA VENDUM</button>
+
+    <div class="grid" id="board"></div>
+
+  </div>
+</div>
+
+<!-- ✅ UPDATED POPUP -->
+<div id="winPopup">
+  <div class="popupBox">
+    <h2>🎉 Nee win pannita dii <br>
+          HAPPY BIRTHDAY BUJJII 🥳🎂🎉🎊</h2>
+
+    <button onclick="startGame()">Play Again</button>
+
+    <!-- 🔥 NEXT BUTTON -->
+    <button onclick="window.location.href='index.html.html'">Next ➡️</button>
+
+  </div>
+</div>
+
+<script>
+let images = [
+"vk.jpeg","vk.jpeg","vk.jpeg",
+"vk1.jpeg","vk1.jpeg","vk1.jpeg",
+"vk2.jpeg","vk2.jpeg","vk2.jpeg",
+"vk3.jpeg","vk3.jpeg","vk3.jpeg",
+"vk4.jpeg","vk4.jpeg","vk4.jpeg",
+"vk5.jpeg","vk5.jpeg","vk5.jpeg",
+"vk6.jpeg","vk6.jpeg","vk6.jpeg",
+"vk7.jpeg","vk7.jpeg","vk7.jpeg",
+"vk8.jpeg","vk8.jpeg","vk8.jpeg",
+"vk9.jpeg","vk9.jpeg","vk9.jpeg"
+];
+
+let selected = [];
+let score = 0;
+let matchCount = 0;
+
+function celebrateWin() {
+  for (let i = 0; i < 80; i++) {
+    let confetti = document.createElement("div");
+    confetti.classList.add("confetti");
+
+    confetti.style.left = Math.random() * 100 + "vw";
+    confetti.style.backgroundColor =
+      ["red","yellow","blue","green","pink","orange"][Math.floor(Math.random()*6)];
+
+    confetti.style.animationDuration = (2 + Math.random() * 3) + "s";
+
+    document.body.appendChild(confetti);
+    setTimeout(() => confetti.remove(), 5000);
+  }
+}
+
+function startGame() {
+  const board = document.getElementById("board");
+  board.innerHTML = "";
+
+  selected = [];
+  score = 0;
+  matchCount = 0;
+
+  document.getElementById("score").innerText = score;
+  document.getElementById("winPopup").style.display = "none";
+
+  let shuffled = [...images].sort(() => 0.5 - Math.random());
+
+  shuffled.forEach((src) => {
+    let card = document.createElement("div");
+    card.classList.add("card");
+
+    let inner = document.createElement("div");
+    inner.classList.add("inner");
+
+    let front = document.createElement("div");
+    front.classList.add("front");
+
+    let back = document.createElement("div");
+    back.classList.add("back");
+
+    let img = document.createElement("img");
+    img.src = src;
+
+    back.appendChild(img);
+    inner.appendChild(front);
+    inner.appendChild(back);
+    card.appendChild(inner);
+
+    card.addEventListener("click", () => {
+
+      if (
+        card.classList.contains("open") ||
+        card.classList.contains("matched") ||
+        selected.length === 3
+      ) return;
+
+      card.classList.add("open");
+      selected.push(card);
+
+      if (selected.length === 3) {
+
+        let a = selected[0].querySelector("img").src;
+        let b = selected[1].querySelector("img").src;
+        let c = selected[2].querySelector("img").src;
+
+        if (a === b && b === c) {
+
+          selected.forEach(x => x.classList.add("matched"));
+
+          score += 20;
+          matchCount++;
+
+          document.getElementById("score").innerText = score;
+          selected = [];
+
+          if (matchCount === images.length / 3) {
+            setTimeout(()=>{
+              document.getElementById("winPopup").style.display="flex";
+              celebrateWin();
+            },500);
+          }
+
+        } else {
+          setTimeout(() => {
+            selected.forEach(x => x.classList.remove("open"));
+            selected = [];
+          }, 500);
+        }
+      }
+    });
+
+    board.appendChild(card);
+  });
+}
+</script>
+
+</body>
+</html>
